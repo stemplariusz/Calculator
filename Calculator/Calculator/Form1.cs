@@ -59,80 +59,98 @@ namespace Calculator
 
         private void button12_Click(object sender, EventArgs e) //równa się
         {
-            label1.Text += " " + textBox1.Text;
-
-            if (dzialanie == "+")
+            if (label1.Text.Contains("+") || label1.Text.Contains("-") || label1.Text.Contains("*") || label1.Text.Contains("/"))
             {
-                textBox1.Text = Convert.ToString(wynik + double.Parse(textBox1.Text));
-            }
-            if (dzialanie == "-")
-            {
-                textBox1.Text = Convert.ToString(wynik - double.Parse(textBox1.Text));
-            }
-            if (dzialanie == "/")
-            {
-                if (textBox1.Text == ",")
-                    textBox1.Text = "0";
-                if (double.Parse(textBox1.Text) == 0)
+                string[] split = label1.Text.Split('+','-','*','/');
+                if (split[1] == "" || split[1] == "" || split[1] == "" || split[1] == "")
                 {
-                    textBox1.Text = "Nie dziel przez zero";
-                    #region Wyłączanie przycisków
-                    button1.Enabled = false;
-                    button2.Enabled = false;
-                    button3.Enabled = false;
-                    button4.Enabled = false;
-                    button5.Enabled = false;
-                    button6.Enabled = false;
-                    button7.Enabled = false;
-                    button8.Enabled = false;
-                    button9.Enabled = false;
-                    button10.Enabled = false;
-                    button11.Enabled = false;
-                    button12.Enabled = false;
-                    button13.Enabled = false;
-                    button14.Enabled = false;
-                    button15.Enabled = false;
-                    button18.Enabled = false;
-                    button19.Enabled = false;
-                    #endregion
+                    label1.Text += " " + textBox1.Text;
+                    if (dzialanie == "+")
+                        {
+                            textBox1.Text = Convert.ToString(wynik + double.Parse(textBox1.Text));
+                        }
+                    if (dzialanie == "-")
+                        {
+                            textBox1.Text = Convert.ToString(wynik - double.Parse(textBox1.Text));
+                        }
+                    if (dzialanie == "/")
+                        {
+                            if (textBox1.Text == ",")
+                                textBox1.Text = "0";
+                            if (double.Parse(textBox1.Text) == 0)
+                            {
+                                textBox1.Text = "Nie dziel przez zero";
+                                #region Wyłączanie przycisków
+                                button1.Enabled = false;
+                                button2.Enabled = false;
+                                button3.Enabled = false;
+                                button4.Enabled = false;
+                                button5.Enabled = false;
+                                button6.Enabled = false;
+                                button7.Enabled = false;
+                                button8.Enabled = false;
+                                button9.Enabled = false;
+                                button10.Enabled = false;
+                                button11.Enabled = false;
+                                button12.Enabled = false;
+                                button13.Enabled = false;
+                                button14.Enabled = false;
+                                button15.Enabled = false;
+                                button18.Enabled = false;
+                                button19.Enabled = false;
+                                #endregion
+                            }
+                            else
+                            {
+                                textBox1.Text = Convert.ToString(wynik / double.Parse(textBox1.Text));
+                            }
+                        }
+                    if (dzialanie == "*")
+                        {
+                            textBox1.Text = Convert.ToString(wynik * double.Parse(textBox1.Text));
+                        }
+                    
+                    if (textBox1.Text.Contains("E") || textBox1.Text.Contains("e") || textBox1.Text.Contains("-"))
+                    {
+                        #region Wyłączanie przycisków
+                        button1.Enabled = false;
+                        button2.Enabled = false;
+                        button3.Enabled = false;
+                        button4.Enabled = false;
+                        button5.Enabled = false;
+                        button6.Enabled = false;
+                        button7.Enabled = false;
+                        button8.Enabled = false;
+                        button9.Enabled = false;
+                        button10.Enabled = false;
+                        button11.Enabled = false;
+                        button12.Enabled = false;
+                        button13.Enabled = false;
+                        button14.Enabled = false;
+                        button15.Enabled = false;
+                        button18.Enabled = false;
+                        button19.Enabled = false;
+                        #endregion
+                    }
                 }
                 else
                 {
-                    textBox1.Text = Convert.ToString(wynik / double.Parse(textBox1.Text));
-                }   
+                    label1.Text = textBox1.Text;
+                    textBox1.Select();
+                }
             }
-            if (dzialanie == "*")
+            else
             {
-                textBox1.Text = Convert.ToString(wynik * double.Parse(textBox1.Text));
+                label1.Text = textBox1.Text;
+                textBox1.Select();
             }
-            
-            if (textBox1.Text.Contains("E"))
-            {
-                #region Wyłączanie przycisków
-                button1.Enabled = false;
-                button2.Enabled = false;
-                button3.Enabled = false;
-                button4.Enabled = false;
-                button5.Enabled = false;
-                button6.Enabled = false;
-                button7.Enabled = false;
-                button8.Enabled = false;
-                button9.Enabled = false;
-                button10.Enabled = false;
-                button11.Enabled = false;
-                button12.Enabled = false;
-                button13.Enabled = false;
-                button14.Enabled = false;
-                button15.Enabled = false;
-                button18.Enabled = false;
-                button19.Enabled = false;
-                #endregion
-            }
+
         }
 
         private void button16_Click(object sender, EventArgs e) //CE
         {
             textBox1.Text = "0";
+            dzialanie = "";
             textBox1.Select();
             #region Włączanie przycisków
             button1.Enabled = true;
@@ -159,6 +177,7 @@ namespace Calculator
         {
             textBox1.Text = "0";
             label1.Text = "";
+            dzialanie = "";
             wynik = 0;
             textBox1.Select();
             #region Włączanie przycisków
